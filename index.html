@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open pls</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fce4ec; /* Soft pink background */
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #880e4f;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        img {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s;
+            color: white;
+            margin: 10px;
+        }
+
+        .btn-yes {
+            background-color: #f48fb1;
+        }
+
+        .btn-no {
+            background-color: #ce93d8;
+            position: relative; /* Will change to absolute via JS */
+        }
+
+        .btn-action {
+            background-color: #f48fb1;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        /* Form Elements */
+        input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px;
+            border: 1px solid #f8bbd0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            color: #880e4f;
+            box-sizing: border-box;
+        }
+
+        /* Food Grid */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .food-item {
+            background: #fff0f5;
+            padding: 15px 5px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+            border: 2px solid transparent;
+        }
+
+        .food-item:hover {
+            border-color: #f48fb1;
+            transform: scale(1.05);
+        }
+
+        /* Receipt Style */
+        .receipt {
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px dashed #ccc;
+            margin: 20px 0;
+        }
+        .receipt h3 {
+            margin: 0;
+            color: #d32f2f;
+            font-size: 28px;
+        }
+        .small-text {
+            font-size: 12px;
+            color: #757575;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Screen 1: The Ask -->
+        <div id="screen-1" class="screen active">
+            <!-- Replace with a real pug image URL -->
+            <img src="C:\Users\HP\Pictures\WhatsApp Image 2026-10-09 at 12.40.33 PM.jpeg "alt="CUTE GUZELIM">
+            <h1>🌸 WILL YOU  GO ON A DATE WITH  ME GUZELIM ? 🌸</h1>
+            <button class="btn btn-yes" onclick="nextScreen('screen-2')">YES ♥</button>
+            <button class="btn btn-no" id="no-btn">NO ✖</button>
+        </div>
+
+        <!-- Screen 2: Surprise -->
+        <div id="screen-2" class="screen">
+            <h1>WAIT YOU ACTUALLY SAID YES?? 😭</h1>
+            <p class="small-text">I was so ready for you to say no 😅</p>
+            <button class="btn btn-action" onclick="nextScreen('screen-3')">okay okay! →</button>
+        </div>
+
+        <!-- Screen 3: Date & Time -->
+        <div id="screen-3" class="screen">
+            <h1>So... when are you free?</h1>
+            <div style="text-align: left;">
+                <label>Pick a Day 📅</label>
+                <input type="date" id="date-picker">
+                
+                <label>What Time? ⏰</label>
+                <select>
+                    <option>Select a time...</option>
+                    <option>12:00 PM</option>
+                    <option>1:00 PM</option>
+                    <option>4:30 PM</option>
+                    <option>6:00 PM</option>
+                    <option>7:30 PM</option>
+                </select>
+            </div>
+            <button class="btn btn-action" onclick="nextScreen('screen-4')">set the date! ♥</button>
+        </div>
+
+        <!-- Screen 4: Food -->
+        <div id="screen-4" class="screen">
+            <h1>What are we feeling? ✨</h1>
+            <p class="small-text">pick your vibe</p>
+            <div class="food-grid">
+                <div class="food-item" onclick="nextScreen('screen-5')">🍕<br>Pizza</div>
+                <div class="food-item" onclick="nextScreen('screen-5')">🍣<br>Sushi</div>
+                <div class="food-item" onclick="nextScreen('screen-5')">🍔<br>Burgers</div>
+                <div class="food-item" onclick="nextScreen('screen-5')">🍝<br>Pasta</div>
+                <div class="food-item" onclick="nextScreen('screen-5')">🌮<br>Tacos</div>
+                <div class="food-item" onclick="nextScreen('screen-5')">🍜<br>Ramen</div>
+            </div>
+        </div>
+
+        <!-- Screen 5: Confirmation -->
+        <div id="screen-5" class="screen">
+            <h1>glad you didn't say no. be ready by 6, I'm coming to get you 🚗</h1>
+            <p class="small-text">P.S. normal people text. I made a website on Replit, during lunch, for you.<br>so big deal.</p>
+            <button class="btn btn-action" onclick="nextScreen('screen-6')">ok I accept 🥰</button>
+        </div>
+
+        <!-- Screen 6: The Joke Fee -->
+        <div id="screen-6" class="screen">
+            <h1>💳 one small fee</h1>
+            <p class="small-text">to confirm your acceptance of this date, please complete the following transaction. totally normal. everyone does this.</p>
+            <div class="receipt">
+                <p style="margin:0; font-weight:bold;">Date Agreement™</p>
+                <p style="font-size: 10px; margin: 5px 0;">one-time fee • non-refundable • absolutely worth it</p>
+                <h3>$499</h3>
+            </div>
+            <button class="btn btn-action" onclick="alert('Transaction Declined: Just kidding! See you on the date.')">pay $499 & confirm 🤝</button>
+        </div>
+    </div>
+
+    <script>
+        // Make the NO button run away
+        const noBtn = document.getElementById('no-btn');
+        
+        noBtn.addEventListener('mouseover', function() {
+            // Change position to absolute so it breaks out of the flexbox layout
+            this.style.position = 'absolute';
+            
+            // Calculate random positions within the window boundaries
+            const x = Math.random() * (window.innerWidth - this.offsetWidth);
+            const y = Math.random() * (window.innerHeight - this.offsetHeight);
+            
+            this.style.left = `${x}px`;
+            this.style.top = `${y}px`;
+        });
+
+        // Function to switch between screens
+        function nextScreen(screenId) {
+            // Hide all screens
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.classList.remove('active');
+            });
+
+            // Show the target screen
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        // Set min date on date picker to today
+        const datePicker = document.getElementById('date-picker');
+        if (datePicker) {
+            datePicker.min = new Date().toISOString().split("T")[0];
+        }
+    </script>
+</body>
+</html>
